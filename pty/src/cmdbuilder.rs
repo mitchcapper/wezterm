@@ -620,6 +620,9 @@ impl CommandBuilder {
 
     pub(crate) fn cmdline(&self) -> anyhow::Result<(Vec<u16>, Vec<u16>)> {
         let mut cmdline = Vec::<u16>::new();
+        let searchRes = self.search_path(&self.args[0]);
+
+        log::error!("{}", msg);
 
         let exe: OsString = if self.is_default_prog() {
             self.get_env("ComSpec")
@@ -628,6 +631,10 @@ impl CommandBuilder {
         } else {
             self.search_path(&self.args[0])
         };
+        let msg = format!(
+            "cmdline searchRes for `{:?}` was: `{:?}` but we will use: `{:?}`",
+            self.args[0], searchRes, exe
+        );
 
         Self::append_quoted(&exe, &mut cmdline);
 
