@@ -151,8 +151,8 @@ impl PsuedoCon {
         if res == 0 {
             let err = IoError::last_os_error();
             let msg = format!(
-                "CreateProcessW `{:?}` in cwd `{:?}` failed: {}",
-                cmd_os,
+                "CreateProcessW `{:?}` `{:?}` `{:?}` in cwd `{:?}` failed: {}",
+                cmd_os, exe, cmdline,
                 cwd.as_ref().map(|c| OsString::from_wide(c)),
                 err
             );
